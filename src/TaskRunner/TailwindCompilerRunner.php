@@ -40,9 +40,9 @@ class TailwindCompilerRunner implements TaskRunnerInterface
 
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
-        readonly private string $projectDir,
-        readonly private Environment $twig,
-        readonly private HttpClientInterface $httpClient,
+        private readonly string $projectDir,
+        private readonly Environment $twig,
+        private readonly HttpClientInterface $httpClient,
     ) {
     }
 

@@ -28,7 +28,7 @@ class ComposerPackageManager implements PackageManagerInterface
 
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
-        readonly private string $projectDir,
+        private readonly string $projectDir,
     ) {
     }
 

@@ -28,9 +28,9 @@ class AssetMapperPackageManager implements PackageManagerInterface
     public const string IDENTIFIER = 'asset_mapper';
 
     public function __construct(
-        readonly private ImportMapManager $importMapManager,
+        private readonly ImportMapManager $importMapManager,
         #[Autowire(param: 'kernel.project_dir')]
-        readonly private string $projectDir,
+        private readonly string $projectDir,
     ) {
     }
 
