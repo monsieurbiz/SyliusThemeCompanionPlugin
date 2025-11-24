@@ -2,10 +2,10 @@
 
 {% block toolbar %}
     <script>
-        const switchForm = document.querySelector('#swithch-theme-form');
+        const switchForm = document.querySelector('#switch-theme-form');
         if (switchForm) {
           switchForm.addEventListener('click', (e) => e.preventDefault());
-          document.querySelector('#swithch-theme-selector').addEventListener('change', function() {
+          document.querySelector('#switch-theme-selector').addEventListener('change', function() {
             switchForm.submit();
           });
         }
@@ -19,9 +19,9 @@
         {% set text %}
             <div class="sf-toolbar-info-piece">
                 <b>Change theme</b>
-                <form action="{{ path('monsieurbiz_theme_companion_theme_switch') }}" method="post" id="swithch-theme-form">
+                <form action="{{ path('monsieurbiz_theme_companion_theme_switch') }}" method="post" id="switch-theme-form">
                     <input type="hidden" name="theme" value="">
-                    <select id="swithch-theme-selector" name="theme">
+                    <select id="switch-theme-selector" name="theme">
                         <option value="__none__">None</option>
                         {% for theme in collector.themes %}
                             <option value="{{ theme.name }}" {{ theme.name == sylius.channel.themeName ? 'selected' : '' }}>{{ theme.title }}</option>
