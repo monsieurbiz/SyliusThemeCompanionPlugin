@@ -1,0 +1,13 @@
+{
+  "name": "@monsieurbiz/sylius-2-local-original-theme",
+  "description": "Sylius 2 Local Original Theme",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "spotlight.js": "^0.7.8",
+    "@sylius-ui/bootstrap": "file:./vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/scripts/bootstrap.js",
+    "@sylius-ui/spotlight": "file:./vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/scripts/spotlight.js"
+  }
+}

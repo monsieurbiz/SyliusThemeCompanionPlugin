@@ -1,0 +1,17 @@
+{
+  "name": "monsieurbiz/sylius-2-local-naked-override-theme",
+  "type": "sylius-theme",
+  "extra": {
+    "sylius-theme": {
+      "title": "Sylius 2 Local Naked Override Theme",
+      "need_companion": true,
+      "prefix": "@Sylius2LocalNakedOverrideTheme",
+      "parents": ["monsieurbiz/sylius-2-local-naked-theme"],
+      "vars": {
+        "twig": {
+          "greatting": "Hello, Monde!"
+        }
+      }
+    }
+  }
+}

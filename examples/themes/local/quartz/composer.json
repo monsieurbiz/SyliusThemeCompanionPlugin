@@ -1,0 +1,22 @@
+{
+  "name": "monsieurbiz/sylius-2-local-quartz-theme",
+  "type": "sylius-theme",
+  "extra": {
+    "sylius-theme": {
+      "title": "Sylius 2 Local Quartz Theme",
+      "need_companion": true,
+      "prefix": "@Sylius2LocalQuartzTheme",
+      "parents": ["monsieurbiz/sylius-2-local-original-theme"],
+      "build_pipeline": {
+        "css": {
+          "input": "%theme_companion.sylius2_local_quartz_theme.assets_path%/styles/main.scss",
+          "config": {
+            "load_path": [
+              "%kernel.project_dir%/vendor/thomaspark/bootswatch/dist"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

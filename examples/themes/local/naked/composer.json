@@ -1,0 +1,22 @@
+{
+  "name": "monsieurbiz/sylius-2-local-naked-theme",
+  "type": "sylius-theme",
+  "extra": {
+    "sylius-theme": {
+      "title": "Sylius 2 Local Naked Theme",
+      "need_companion": true,
+      "prefix": "@Sylius2LocalNakedTheme",
+      "vars": {
+        "twig": {
+          "greatting": "Hello, World!"
+        }
+      },
+      "dependencies": {
+        "js": {
+          "package_file": "%theme_companion.sylius2_local_naked_theme.assets_path%/package.json",
+          "package_manager": "asset_mapper"
+        }
+      }
+    }
+  }
+}

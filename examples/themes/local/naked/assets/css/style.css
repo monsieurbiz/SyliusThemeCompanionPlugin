@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Full image background */
+body {
+    background-image: url('../images/background.png');
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Container for content with glass effect */
+.container {
+    text-align: center; /* Center text */
+    color: white; /* Text color */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Blur effect for glass effect */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+/* Logo styles */
+.logo {
+    max-width: 150px; /* Limit the logo width */
+    margin-bottom: 20px; /* Space below the logo */
+}
+
+/* Title styles */
+.title {
+    font-size: 3em; /* Large font size for title */
+    margin-bottom: 10px; /* Space below the title */
+}
+
+/* Subtitle styles */
+.subtitle {
+    font-size: 1.5em; /* Smaller font size for subtitle */
+    margin-bottom: 20px; /* Space below the subtitle */
+}
+
+/* Button styles */
+.cta-button {
+    display: inline-block; /* Make the button inline-block */
+    padding: 10px 20px; /* Padding around the button */
+    font-size: 1.2em; /* Font size for button */
+    color: white; /* Text color */
+    background-color: #007BFF; /* Bootstrap's primary color */
+    text-decoration: none; /* Remove underline from link */
+    border-radius: 5px; /* Rounded corners for button */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.cta-button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5em; /* Adjust title size for smaller screens */
+    }
+
+    .subtitle {
+        font-size: 1.2em; /* Adjust subtitle size for smaller screens */
+    }
+
+    .cta-button {
+        font-size: 1em; /* Adjust button font size for smaller screens */
+    }
+}

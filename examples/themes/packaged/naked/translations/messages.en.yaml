@@ -1,0 +1,4 @@
+theme:
+    ui:
+        your_sylius_journey_starts_here: 'Your Sylius 2 journey starts here'
+        go_to_admin: 'Go to admin'

@@ -1,0 +1,45 @@
+{% extends '@!SyliusTheme/Collector/theme.html.twig' %}
+
+{% block toolbar %}
+    <script>
+        const switchForm = document.querySelector('#switch-theme-form');
+        if (switchForm) {
+          switchForm.addEventListener('click', (e) => e.preventDefault());
+          document.querySelector('#switch-theme-selector').addEventListener('change', function() {
+            switchForm.submit();
+          });
+        }
+    </script>
+    {% if collector.themes is not empty %}
+        {% set icon %}
+            {{ include('@SyliusTheme/Collector/Icon/theme.svg') }}
+            <span class="sf-toolbar-value">{{ collector.usedTheme|default(collector.themes|length) }}</span>
+        {% endset %}
+
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <b>Change theme</b>
+                <form action="{{ path('monsieurbiz_theme_companion_theme_switch') }}" method="post" id="switch-theme-form">
+                    <input type="hidden" name="theme" value="">
+                    <select id="switch-theme-selector" name="theme">
+                        <option value="__none__">None</option>
+                        {% for theme in collector.themes %}
+                            <option value="{{ theme.name }}" {{ theme.name == sylius.channel.themeName ? 'selected' : '' }}>{{ theme.title }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="sf-toolbar-info-piece">
+                <b>All themes</b>
+                <span class="sf-toolbar-status">{{ collector.themes|length }}</span>
+            </div>
+
+            <div class="sf-toolbar-info-piece">
+                <b>Used themes</b>
+                <span class="sf-toolbar-status">{{ collector.usedThemes|length }}</span>
+            </div>
+        {% endset %}
+
+        {{ include('@WebProfiler/Profiler/toolbar_item.html.twig') }}
+    {% endif %}
+{% endblock %}

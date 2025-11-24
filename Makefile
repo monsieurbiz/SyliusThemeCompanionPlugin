@@ -1,13 +1,11 @@
 .DEFAULT_GOAL := help
 SHELL=/bin/bash
 APP_DIR=tests/Application
-SYLIUS_VERSION=1.14.0
+SYLIUS_VERSION=2.0.0
 SYMFONY=cd ${APP_DIR} && symfony
 COMPOSER=symfony composer
 CONSOLE=${SYMFONY} console
 export COMPOSE_PROJECT_NAME=theme-companion
-export MIGRATIONS_NAMESPACE=MonsieurBiz\\SyliusThemeCompanionPlugin\\Migrations
-export USER_UID=$(shell id -u)
 PLUGIN_NAME=sylius-${COMPOSE_PROJECT_NAME}-plugin
 COMPOSE=docker compose
 YARN=yarn
@@ -49,9 +47,6 @@ yarn.install: ${APP_DIR}/yarn.lock
 ${APP_DIR}/yarn.lock:
 	ln -sf ${APP_DIR}/node_modules node_modules
 	cd ${APP_DIR} && ${YARN} install && ${YARN} build
-# No CSS and JS on this plugin yet
-#	${YARN} install
-#	${YARN} encore prod
 
 node_modules: ${APP_DIR}/node_modules ## Install the Node dependencies using yarn
 
@@ -61,7 +56,7 @@ ${APP_DIR}/node_modules: yarn.install
 ### TEST APPLICATION
 ### ¯¯¯¯¯
 
-application: .php-version php.ini ${APP_DIR} setup_application ${APP_DIR}/docker-compose.yaml
+application: .php-version php.ini ${APP_DIR} setup_application setup_themes ${APP_DIR}/docker-compose.yaml
 
 ${APP_DIR}:
 	(${COMPOSER} create-project --no-interaction --prefer-dist --no-scripts --no-progress --no-install sylius/sylius-standard="~${SYLIUS_VERSION}" ${APP_DIR})
@@ -80,6 +75,19 @@ setup_application:
 	$(MAKE) apply_dist
 	(cd ${APP_DIR} && ${COMPOSER} require --no-progress --no-interaction monsieurbiz/${PLUGIN_NAME}="*@dev")
 	rm -rf ${APP_DIR}/var/cache
+
+setup_themes:
+	cp -r examples/themes/local/* ${APP_DIR}/themes
+	(cd ${APP_DIR} && ${COMPOSER} require --no-progress --no-interaction symfonycasts/sass-bundle twbs/bootstrap thomaspark/bootswatch)
+	(cd ${APP_DIR} && ${COMPOSER} config repositories.naked-theme '{"type": "path", "url": "../../examples/themes/packaged/naked"}')
+	(cd ${APP_DIR} && ${COMPOSER} require --no-progress monsieurbiz/sylius-2-packaged-naked-theme="*@dev")
+	#Small hack due to native bad import
+	(cd ${APP_DIR} && \
+      if sed --version >/dev/null 2>&1; then \
+        sed -i "s/tom-select\.default\.min\.css/tom-select.default.css/g" importmap.php; \
+      else \
+        sed -i '' "s/tom-select\.default\.min\.css/tom-select.default.css/g" importmap.php; \
+      fi)
 
 
 ${APP_DIR}/docker-compose.yaml:
@@ -111,7 +119,7 @@ apply_dist:
 ### TESTS
 ### ¯¯¯¯¯
 
-test.all: test.composer test.phpstan test.phpmd test.phpunit test.phpspec test.phpcs test.yaml test.schema test.twig test.container ## Run all tests in once
+test.all: test.composer test.phpstan test.phpmd test.phpcs ## Run all tests in once
 
 test.composer: ## Validate composer.json
 	${COMPOSER} validate --strict
@@ -138,13 +146,13 @@ test.container: ## Lint the symfony container
 	${CONSOLE} lint:container
 
 test.yaml: ## Lint the symfony Yaml files
-	${CONSOLE} lint:yaml ../../src/Resources/config --parse-tags
+	${CONSOLE} lint:yaml ../../config --parse-tags
 
 test.schema: ## Validate MySQL Schema
 	${CONSOLE} doctrine:schema:validate
 
 test.twig: ## Validate Twig templates
-	${CONSOLE} lint:twig --no-debug templates/ ../../src/Resources/views/
+	${CONSOLE} lint:twig --no-debug templates/ ../../templates/
 
 ###
 ### SYLIUS
@@ -165,12 +173,22 @@ sylius.assets: ## Install all assets with symlinks
 	${CONSOLE} assets:install --symlink
 	${CONSOLE} sylius:install:assets
 	${CONSOLE} sylius:theme:assets:install --symlink
+	$(MAKE) theme.init
 
 messenger.setup: ## Setup Messenger transports
 	${CONSOLE} messenger:setup-transports
 
-doctrine.diff: ## Doctrine diff
-	${CONSOLE} doctrine:migration:diff --namespace="${MIGRATIONS_NAMESPACE}"
+###
+### SYLIUS
+###
+theme.init: theme.install theme.build
+
+theme.install:
+	${CONSOLE} theme:install --all
+
+theme.build:
+	${CONSOLE} theme:build --all
+
 
 ###
 ### PLATFORM

@@ -1,0 +1,4 @@
+monsieurbiz_theme_companion_theme_switch:
+    methods: [POST]
+    path: /switch-theme
+    controller: MonsieurBiz\SyliusThemeCompanionPlugin\Controller\SwitchThemeController

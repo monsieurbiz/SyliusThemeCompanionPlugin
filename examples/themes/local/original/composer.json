@@ -1,0 +1,46 @@
+{
+  "name": "monsieurbiz/sylius-2-local-original-theme",
+  "type": "sylius-theme",
+  "extra": {
+    "sylius-theme": {
+      "title": "Sylius 2 Local Original Theme",
+      "need_companion": true,
+      "prefix": "@Sylius2LocalOriginalTheme",
+      "assets_managers": {
+        "asset_mapper": {
+          "paths": {
+            "%kernel.project_dir%/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/controllers": "@sylius-ui/shop",
+            "%kernel.project_dir%/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/scripts": "@sylius-ui/shop"
+          },
+          "excluded_patterns": [
+            "*/api-platform/symfony/Bundle/Resources/public/graphiql/graphiql.min.js"
+          ]
+        }
+      },
+      "dependencies": {
+        "js": {
+          "package_file": "%theme_companion.sylius2_local_original_theme.assets_path%/package.json",
+          "package_manager": "asset_mapper"
+        }
+      },
+      "build_pipeline": {
+        "css": {
+          "input": "%theme_companion.sylius2_local_original_theme.assets_path%/styles/main.scss",
+          "output": "%theme_companion.current_theme.assets_generated_path%/css/style.css",
+          "runner": "sass",
+          "config": {
+            "load_path": [
+                "%kernel.project_dir%/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/styles",
+                "%kernel.project_dir%/vendor/twbs"
+            ]
+          }
+        },
+        "copy_fonts": {
+          "input": "%kernel.project_dir%/vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/Resources/assets/fonts",
+          "output": "%theme_companion.current_theme.assets_generated_path%/fonts",
+          "runner": "copy"
+        }
+      }
+    }
+  }
+}

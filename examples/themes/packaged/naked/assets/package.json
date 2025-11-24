@@ -1,0 +1,10 @@
+{
+  "name": "@monsieurbiz/sylius-2-packaged-naked-theme",
+  "description": "Sylius 2 Packaged Naked Theme",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "alpinejs": "^3.14.8"
+  }
+}

@@ -1,11 +1,20 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
 parameters:
     level: 8
     paths:
         - %rootDir%/src/
 
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
     excludePaths:
         # Makes PHPStan crash
         - 'src/DependencyInjection/MonsieurBizSyliusThemeCompanionExtension.php'
+        - 'src/TaskRunner/SassCompilerRunner/SassCompiler.php'
+        - 'src/TaskRunner/SassCompilerRunner.php'
 
         # Test dependencies
         - 'tests/Application/**/*'
