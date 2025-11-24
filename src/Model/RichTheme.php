@@ -19,7 +19,7 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 class RichTheme extends Theme implements RichThemeInterface
 {
-    private string $prefix;
+    private string $prefix = '';
 
     private string $parameterName;
 
