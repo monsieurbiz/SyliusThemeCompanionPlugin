@@ -46,7 +46,7 @@ readonly class RichThemeLoader implements ThemeLoaderInterface
 
         foreach ($richThemes as $richTheme) {
             $parents = $richTheme->getParents();
-            $richTheme->cleantParents();
+            $richTheme->cleanParents();
             foreach ($parents as $parent) {
                 if (!isset($richThemes[$parent->getName()])) {
                     continue;

@@ -40,7 +40,7 @@ class RichTheme extends Theme implements RichThemeInterface
      */
     private array $buildPipeline = [];
 
-    public function cleantParents(): void
+    public function cleanParents(): void
     {
         $this->parents = [];
     }

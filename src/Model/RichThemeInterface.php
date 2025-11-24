@@ -17,7 +17,7 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 interface RichThemeInterface extends ThemeInterface
 {
-    public function cleantParents(): void;
+    public function cleanParents(): void;
 
     public function getPrefix(): string;
 
